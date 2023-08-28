@@ -15,13 +15,16 @@ interface User {
 const HeatMap: React.FC<{ user: User }> = ({user}) => {
   const data = useRef<{ [key: number]: string }>(initialData.reduce((acc, curr, index) => ({...acc, [index + 1]: curr}), {})).current;
 
-  const timestampToDay = (timestamp: number) => {
-    const date = new Date(timestamp * 1000);
-    const start = new Date(date.getFullYear(), 0, 0);
-    const diff = (date - start) + ((start.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000);
-    const oneDay = 1000 * 60 * 60 * 24;
-    const day = Math.floor(diff/oneDay);
+  const dayOfYear = (date: Date) => {
+    var start = new Date(date.getFullYear(), 0, 0);
+    var diff = date.valueOf() - start.valueOf();
+    var oneDay = 1000 * 60 * 60 * 24;
+    var day = Math.floor(diff / oneDay);
     return day;
+  }
+  const dateStringToDay = (dateString: string) => {
+    const date = new Date(dateString);
+    return dayOfYear(date);
   }
 
   async function getUserWorkouts(userId: string) {
@@ -38,7 +41,7 @@ const HeatMap: React.FC<{ user: User }> = ({user}) => {
   useEffect(() => {
     getUserWorkouts(user.uid).then((workouts) => {
       workouts.forEach((workout) => {
-        const day = timestampToDay(workout.date.seconds)
+        const day = dateStringToDay(workout.date.seconds)
         data[day] = '#1d60cc'; // this change should persist across re-renders now.
       });
     });

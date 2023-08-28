@@ -8,7 +8,7 @@ const NavMenu = () => {
   
   
   return (
-    <nav className="bg-zinc-950 text-white flex flex-col align-start p-7 text-xl font-medium w-screen h-32">
+    <nav className="bg-zinc-900 text-white flex flex-col align-start p-7 text-xl font-medium w-screen h-32">
       <div className="flex flex-row">
         <Link to="/" className="no-underline mr-5 hover:text-primary">Dashboard</Link>
         <Link to="/workout" className="no-underline mr-5 hover:text-primary">Work Out</Link>
