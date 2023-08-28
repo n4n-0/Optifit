@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db, doc } from '../../firebase';
-import { collection, setDoc, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 
 import {
   Table,
@@ -40,6 +40,8 @@ const WorkoutTable: React.FC<{ user: User }> = ({user}) => {
       workout.exercises = exercises;
       workouts.push(workout);
     };
+    // sort the workouts array based on date in descending order
+    workouts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     return workouts;
   }
 
@@ -62,30 +64,32 @@ const WorkoutTable: React.FC<{ user: User }> = ({user}) => {
   }, [user]);
   
   return (
-    <Table className="">
-      <TableCaption>Previous Workouts</TableCaption>
-      <TableHeader>
-        <TableRow className="">
-          <TableHead className="w-[100px] text-white hover:bg-transparent">Date</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {workouts.map((workout, index) =>
-        <TableRow key={index} className="hover:bg-primary/50 data-[state=selected]:bg-muted">
-          <TableCell>
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1">
-                <AccordionTrigger>{formattedDate(workout.date)}</AccordionTrigger>
-                <AccordionContent>
-                  <p>Total Exercises: {workout.exercises.length}</p>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </TableCell>
-        </TableRow>
-        )}
-      </TableBody>
-    </Table>    
+    <div className="bg-zinc-800">
+      <Table className="bg-zinc-800">
+        <TableCaption>Previous Workouts</TableCaption>
+        <TableHeader>
+          <TableRow className="">
+            <TableHead className="w-[100px] text-white hover:bg-transparent">Date</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {workouts.map((workout, index) =>
+          <TableRow key={index} className="hover:bg-primary/50 data-[state=selected]:bg-muted">
+            <TableCell>
+              <Accordion type="single" collapsible>
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>{formattedDate(workout.date)}</AccordionTrigger>
+                  <AccordionContent>
+                    <p>Total Exercises: {workout.exercises.length}</p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </TableCell>
+          </TableRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
   )
 }
 

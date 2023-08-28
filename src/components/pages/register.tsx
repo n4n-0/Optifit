@@ -76,6 +76,9 @@ const Register = () => {
           subscriptionStart: null,
           subscriptionStatus: "Free",
           createdAt: new Date(),
+          height: 0,
+          weight: 0,
+          goal: 0,
         });
 
         toast(`Registration Successful. ${username}`, {

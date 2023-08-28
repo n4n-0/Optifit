@@ -11,9 +11,6 @@ const NavMenu = () => {
     <nav className="bg-zinc-900 text-white flex flex-col align-start p-7 text-xl font-medium w-screen h-32">
       <div className="flex flex-row">
         <Link to="/" className="no-underline mr-5 hover:text-primary">Dashboard</Link>
-        <Link to="/workout" className="no-underline mr-5 hover:text-primary">Work Out</Link>
-        <Link to="/statistics" className="no-underline mr-5 hover:text-primary">Statistics</Link>
-        <Link to="/mealprep" className="no-underline mr-5 hover:text-primary">Meal Prep</Link>
   
         <div className="flex ml-auto">
           <Avatar>
