@@ -4,6 +4,10 @@ import { toast } from 'react-toastify';
 
 import { Link } from 'react-router-dom';
 
+import NavMenu from '../ui/navigationmenu';
+import HeatMap from '../ui/heatmap';
+import WorkoutTable from '../ui/workouttable';
+
 const Dashboard = ({ user }) => {
   const logout = async () => {
     console.log()
@@ -38,12 +42,15 @@ const Dashboard = ({ user }) => {
   
   return (
     <div>
-      <h1>Welcome, {user.email}!</h1>
-      <p>You are logged in as {user.email}.</p>
-      <p>
-        <Link to="/register">Register</Link> |{' '}
-        <Link to="/" onClick={logout}>Log out</Link>
-      </p>
+      <div className="flex flex-col h-screen w-screen bg-zinc-950">
+        <NavMenu />
+        <div className="ml-20 mr-20">
+          <HeatMap user={user} />
+        </div>
+        <div className='mt-20 ml-20 mr-20'>
+          <WorkoutTable user={user} />
+        </div>
+      </div>
     </div>
   );
 };
