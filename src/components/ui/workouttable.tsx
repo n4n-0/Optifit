@@ -11,6 +11,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 interface User {
@@ -59,8 +67,9 @@ const WorkoutTable: React.FC<{ user: User }> = ({user}) => {
     async function fetchWorkouts() {
       setWorkouts(await getUserWorkouts(user.uid));
     }
+    console.log(workouts)
     fetchWorkouts();
-    console.log(workouts);
+    
   }, [user]);
   
   return (
@@ -74,13 +83,25 @@ const WorkoutTable: React.FC<{ user: User }> = ({user}) => {
         </TableHeader>
         <TableBody>
           {workouts.map((workout, index) =>
-          <TableRow key={index} className="hover:bg-primary/50 data-[state=selected]:bg-muted">
+          <TableRow key={index} className="data-[state=selected]:bg-muted">
             <TableCell>
               <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
                   <AccordionTrigger>{formattedDate(workout.date)}</AccordionTrigger>
                   <AccordionContent>
-                    <p>Total Exercises: {workout.exercises.length}</p>
+                    <div className="flex flex-row overflow-x-scroll">
+                      {workout.exercises?.map((exercise, index) =>
+                        <Card className="mr-1 w-64">
+                          <CardHeader>
+                            <CardTitle>{exercise.exercise}</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p>{exercise.sets} sets for {exercise.reps}</p>
+                            <p>{exercise.weight} lbs</p>
+                          </CardContent>
+                        </Card>
+                      )}
+                    </div>
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

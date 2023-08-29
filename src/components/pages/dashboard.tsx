@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -111,9 +112,9 @@ const Dashboard = ({ user }) => {
         <div className='mt-20 ml-20 mr-20'>
           <WorkoutTable user={user} />
         </div>
-        <div className="relative">
+        <div className="relative h-full">
           <Dialog>
-            <DialogTrigger ><Button className="absolute bottom-3 left-3">+</Button></DialogTrigger>
+            <DialogTrigger asChild><Button className="absolute bottom-3 left-3">+</Button></DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle className="w-full p-2 text-center">Add a workout</DialogTitle>
