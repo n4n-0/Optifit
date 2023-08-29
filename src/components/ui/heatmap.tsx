@@ -67,7 +67,7 @@ const HeatMap: React.FC<{ user: User }> = ({user}) => {
           style={{
             width: '20px',
             height: '20px',
-            backgroundColor: color,
+            backgroundColor: color, 
             margin: '2px',
             borderRadius: '15%',
             boxShadow: color === '#1d60cc' ? '0 0 10px #1d60cc, 0 0 5px #1d60cc' : 'none'
